@@ -1,3 +1,5 @@
+import task.Task;
+
 public class NotificationSystem {
     NotificationType type;
     Task task;
