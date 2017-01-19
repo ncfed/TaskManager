@@ -3,29 +3,22 @@ package task;
 import java.util.Date;
 
 public class Task {
-    int id = 1;
-    String name;
-    String description;
-    Date notificationDateTime;
+
+    public int id = 0;
+    public String name;
+    public String description;
+    public Date notificationDateTime;
     //Contact contact;
     //TaskState state;
-    boolean isImportant;
+    public boolean isImportant;
 
-    public void Task() {
-        this.id = id++;
-    }
+    public Task(int id, String name, String description, boolean isImportant) {
 
-    public void add(String taskName, String taskDescription, Boolean isImportant) {
-        this.name = taskName;
-        this.description = taskDescription;
+        this.id = id;
+        this.name = name;
+        this.description = description;
         this.isImportant = isImportant;
+
     }
 
-    //public void add(String name, String description, Date notificationDateTime, Contact contact, TaskState state, boolean isImportant){}
-
-    void edit(int taskId){
-    }
-
-    void delete(int taskId){
-    }
 }

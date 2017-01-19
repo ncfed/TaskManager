@@ -1,5 +1,7 @@
 package cmd;
 
+import interfaces.Command;
+
 public class Exit implements Command {
     @Override
     public void Execute() {

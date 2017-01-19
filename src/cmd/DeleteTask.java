@@ -1,5 +1,7 @@
 package cmd;
 
+import interfaces.Command;
+
 public class DeleteTask implements Command {
 
     @Override

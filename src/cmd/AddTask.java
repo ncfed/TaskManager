@@ -1,7 +1,7 @@
 package cmd;
 
 import java.util.Scanner;
-
+import interfaces.Command;
 import task.Task;
 
 public class AddTask implements Command {
@@ -13,10 +13,10 @@ public class AddTask implements Command {
     @Override
     public void Execute() {
         System.out.println("---NEW TASK---");
-        System.out.print("task.Task name: ");
+        System.out.print("Task name: ");
         Scanner scanner = new Scanner(System.in);
         taskName = scanner.nextLine();
-        System.out.print("task.Task description: ");
+        System.out.print("Task description: ");
         taskDescription = scanner.nextLine();
         System.out.print("Is the task important? (y/n): ");
         do {
@@ -37,8 +37,8 @@ public class AddTask implements Command {
             }
         } while (!no_error);
 
-        Task task = new Task();
-        task.add(taskName, taskDescription, isImportant);
+        Task task = new Task(1, taskName, taskDescription, Boolean.parseBoolean(taskImportance));
+
         System.out.println("---NEW TASK ADDED---");
     }
 

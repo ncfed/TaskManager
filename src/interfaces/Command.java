@@ -1,4 +1,4 @@
-package cmd;
+package interfaces;
 
 public interface Command {
 

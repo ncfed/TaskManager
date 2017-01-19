@@ -1,17 +1,30 @@
-import cmd.*;
+package ui;
 
+import cmd.*;
+import interfaces.*;
+import journal.TaskJournal;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
-public class UserInterface {
+public class UserInterface implements Observable {
 
+    List<Observer> observers;
     Boolean cmd_ok = false;
-    String str_menu = "1 - Open task journal\n" + "2 - Save task journal\n" + "3 - Show scheduler\n" +
-            "4 - Add task\n" + "5 - Edit task\n" + "6 - Delete task\n" + "7 - Add contact\n" +
-            "8 - Delete contact\n" + "9 - Exit\n\n" + "Please, choose the action (1-9): ";
     String input = "";
+    TaskJournal model;
+    Display view;
 
-    public void ShowMenu() {
-        System.out.print(str_menu);
+    public UserInterface() {
+        observers = new LinkedList<>();
+    }
+
+    public void addModel(TaskJournal m) {
+        this.model = m;
+    }
+
+    public void addView(Display v) {
+        this.view = v;
     }
 
     public void ReadCommand() {
@@ -21,54 +34,60 @@ public class UserInterface {
             switch (input) {
                 case "1":
                     cmd_ok = true;
-                    OpenJournal cmd_OpenJournal = new OpenJournal();
-                    cmd_OpenJournal.Execute();
-                    break;
-                case "2":
-                    cmd_ok = true;
-                    SaveJournal cmd_SaveJournal = new SaveJournal();
-                    cmd_SaveJournal.Execute();
-                    break;
-                case "3":
-                    cmd_ok = true;
                     ShowSheduler cmd_ShowSheduler = new ShowSheduler();
                     cmd_ShowSheduler.Execute();
                     break;
-                case "4":
+                case "2":
                     cmd_ok = true;
                     AddTask cmd_AddTask = new AddTask();
                     cmd_AddTask.Execute();
                     break;
-                case "5":
+                case "3":
                     cmd_ok = true;
                     EditTask cmd_EditTask = new EditTask();
                     cmd_EditTask.Execute();
                     break;
-                case "6":
+                case "4":
                     cmd_ok = true;
                     DeleteTask cmd_DeleteTask = new DeleteTask();
                     cmd_DeleteTask.Execute();
                     break;
-                case "7":
+                case "5":
                     cmd_ok = true;
                     AddContact cmd_AddContact = new AddContact();
                     cmd_AddContact.Execute();
                     break;
-                case "8":
+                case "6":
                     cmd_ok = true;
                     DeleteContact cmd_DeleteContact = new DeleteContact();
                     cmd_DeleteContact.Execute();
                     break;
-                case "9":
+                case "7":
                     cmd_ok = true;
                     Exit cmd_Exit = new Exit();
                     cmd_Exit.Execute();
                     break;
                 default:
-                    System.out.print("Illegal command. Please, try again (1-9): ");
+                    System.out.print("Illegal command. Please, try again (1-7): ");
                     cmd_ok = false;
                     break;
             }
         } while (!cmd_ok);
+    }
+
+    @Override
+    public void registerObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers)
+            observer.update();
     }
 }
